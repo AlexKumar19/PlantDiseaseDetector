@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Camera Stream</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Camera Stream with YOLOv8 Object Detection</h1>
+    <div>
+        <button id="start-button">Start Camera</button>
+        <button id="stop-button">Stop Camera</button>
+    </div>
+    <img id="video-feed" src="{{ url_for('video_feed') }}" width="720" height="480" style="display:none;">
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
