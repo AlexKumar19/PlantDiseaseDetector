@@ -4,7 +4,7 @@ from ultralytics import YOLO
 import os
 
 # Load your YOLOv8 model from the runs directory
-model = YOLO('/home/vishnuaa77/vscode/PlantDiseaseDetector/flask-yolo-app/best.pt')
+model = YOLO('best.pt')
 
 #static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 #template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
@@ -34,7 +34,7 @@ def gen_frames():
 
 @app.route('/')
 def index():
-    return render_template('templates/index.html')
+    return render_template('index.html')
 
 @app.route('/video_feed')
 def video_feed():
