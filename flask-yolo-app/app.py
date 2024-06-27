@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 import tensorflow as tf
 
-# Load your YOLOv8 model
+# Load the YOLOv8 model
 yolo_model = YOLO('best.pt')
 
 # Load the Keras model
@@ -74,13 +74,16 @@ def upload_image():
             print(f"File saved to {filepath}")  # Debug statement
 
             # Perform object detection
-            image = Image.open(filepath).convert('RGB')
-            results = yolo_model.predict(source=np.array(image))
+            image = Image.open(filepath)
+            results = yolo_model.predict(source=image)
             annotated_image = results[0].plot()
+
+            # Convert BGR (OpenCV default) to RGB
+            #annotated_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
             
             # Save the annotated image
             annotated_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'annotated_' + filename)
-            cv2.imwrite(annotated_image_path, annotated_image)
+            Image.fromarray(annotated_image).save(annotated_image_path)
             
             print(f"Annotated image saved to {annotated_image_path}")  # Debug statement
 
@@ -98,11 +101,13 @@ def upload_image():
             all_predictions = []
             for leaf_array in leaves_images:
                 predictions = keras_model.predict(leaf_array)
+                print(f"Predictions: {predictions}")  # Debug statement
                 all_predictions.append(predictions)
             
             # Average the predictions
             avg_predictions = np.mean(all_predictions, axis=0)
             predicted_class = class_names[np.argmax(avg_predictions)]
+            print(f"Average Predictions: {avg_predictions}, Predicted Class: {predicted_class}")  # Debug statement
             
             return redirect(url_for('display_image', filename='annotated_' + filename, prediction=predicted_class))
     return render_template('upload.html')
