@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Camera Stream</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>YOLO Object Detection</title>
 </head>
 <body>
-    <h1>Camera Stream with YOLOv8 Object Detection</h1>
-    <div>
-        <button id="start-button">Start Camera</button>
-        <button id="stop-button">Stop Camera</button>
-    </div>
-    <img id="video-feed" src="{{ url_for('video_feed') }}" width="720" height="480" style="display:none;">
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <h1>YOLO Object Detection</h1>
+    <p>Welcome to our YOLO object detection demo. Choose an option below:</p>
+    <a href="{{ url_for('video') }}" class="button">Real-time Video Detection</a>
+    <a href="{{ url_for('upload_image') }}" class="button">Upload Image for Detection</a>
 </body>
 </html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Annotated Image</title>
+</head>
+<body>
+    <h1>Annotated Image</h1>
+    <img src="{{ url_for('static', filename=filename) }}" alt="Annotated Image">
+    <h2>Prediction: {{ prediction }}</h2>
+    <br>
+    <a href="{{ url_for('upload_image') }}" class="button">Upload Another Image</a>
+    <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+</body>
+</html>

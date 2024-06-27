@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+    <title>Real-time Video Detection</title>
+</head>
+<body>
+    <h1>Real-time Video Detection</h1>
+    <button id="start-button">Start Video Feed</button>
+    <button id="stop-button">Stop Video Feed</button>
+    <br>
+    <img id="video-feed" src="" style="display:none;">
+    <br>
+    <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+</body>
+</html>
