@@ -5,7 +5,7 @@ PlantDiseaseDetector is a machine learning project designed to assist farmers in
 ## Features
 
 - **Crop Disease Detection**: Identify various diseases in crops using images of leaves.
-- **Real-Time Segmentation**: Segment and highlight diseased areas on leaves in real-time using YOLOv5.
+- **Real-Time Segmentation**: Segment and highlight diseased areas on leaves in real-time using YOLOv8.
 - **Multi-Leaf Detection**: Handle multiple leaves in a single image, ensuring comprehensive analysis.
 - **Keras-based Classification**: Utilize a Keras model to classify segmented leaves into specific disease categories.
 - **User-Friendly Web Interface**: A Flask-based web application with endpoints for video streaming and image uploads.
