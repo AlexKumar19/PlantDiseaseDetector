@@ -1,6 +1,6 @@
 # Plant Disease Detector
 
-PlantDiseaseDetector is a machine learning project designed to assist farmers in detecting crop diseases using computer vision. The project leverages YOLOv5 for real-time object detection and segmentation, enabling efficient monitoring and management of agricultural fields. Additionally, a Keras-based neural network is used for detailed classification of detected leaves to identify specific diseases.
+PlantDiseaseDetector is a machine learning project designed to assist farmers in detecting crop diseases using computer vision. The project leverages YOLOv8 for real-time object detection and segmentation, enabling efficient monitoring and management of agricultural fields. Additionally, a Keras-based neural network is used for detailed classification of detected leaves to identify specific diseases.
 
 ## Features
 
@@ -40,10 +40,10 @@ To get started with PlantDiseaseDetector, follow these steps:
     pip install -r requirements.txt
     ```
 
-4. **Download the YOLOv5 weights and place them in the project directory**:
+4. **Have the YOLOv8 weights in the project directory**:
     - Ensure you have `best.pt` in the root directory.
 
-5. **Place your Keras model in the project directory**:
+5. **Have the Keras model in the project directory**:
     - Ensure you have `leaf_classification_model.keras` in the root directory.
 
 ## Usage
@@ -81,7 +81,7 @@ The web application provides the following endpoints:
 ## Results
 
 - **Segmentation and Detection**:
-  - YOLOv5 effectively segments and detects leaves in real-time.
+  - YOLOv8 effectively segments and detects leaves in real-time.
 - **Classification**:
   - The Keras model classifies leaves into specific disease categories with high accuracy.
 
