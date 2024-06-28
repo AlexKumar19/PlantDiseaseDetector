@@ -15,11 +15,11 @@ keras_model = tf.keras.models.load_model('leaf_classification_model.keras')
 
 # Define the class names
 class_names = [
-    "Pepper__bell___Bacterial_spot", "Pepper__bell___healthy", "Potato___Early_blight",
-    "Potato___Late_blight", "Potato___healthy", "Tomato_Bacterial_spot", "Tomato_Early_blight",
-    "Tomato_Late_blight", "Tomato_Leaf_Mold", "Tomato_Septoria_leaf_spot",
-    "Tomato_Spider_mites_Two_spotted_spider_mite", "Tomato__Target_Spot",
-    "Tomato__Tomato_YellowLeaf__Curl_Virus", "Tomato__Tomato_mosaic_virus", "Tomato_healthy"
+    "Pepper bell Bacterial spot", "Healthy bell pepper", "Potato Early blight",
+    "Potato Late blight", "Healthy potato", "Tomato Bacterial spot", "Tomato Early blight",
+    "Tomato Late blight", "Tomato Leaf Mold", "Tomato Septoria leaf spot",
+    "Tomato Spider mites (Two spotted spider mite)", "Tomato Target Spot",
+    "Tomato Yellow Leaf Curl Virus", "Tomato mosaic virus", "Healthy tomato"
 ]
 
 app = Flask(__name__)
@@ -57,6 +57,7 @@ def video_feed():
 @app.route('/video')
 def video():
     return render_template('video.html')
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_image():
     if request.method == 'POST':
@@ -77,9 +78,6 @@ def upload_image():
             results = yolo_model.predict(source=image)
             annotated_image = results[0].plot()
 
-            # Convert BGR (OpenCV default) to RGB
-            # annotated_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
-            
             # Save the annotated image
             annotated_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'annotated_' + filename)
             Image.fromarray(annotated_image).save(annotated_image_path)
@@ -112,14 +110,12 @@ def upload_image():
             return redirect(url_for('display_image', filename='annotated_' + filename, prediction=predicted_class))
     return render_template('upload.html')
 
-
 @app.route('/uploads/<filename>')
 def display_image(filename):
     prediction = request.args.get('prediction', '')
     file_url = os.path.join('uploads', filename).replace("\\", "/")
     print(f"Displaying image from {file_url}")  # Debug statement
     return render_template('display.html', filename=file_url, prediction=prediction)
-
 
 if __name__ == '__main__':
     app.run(debug=True)

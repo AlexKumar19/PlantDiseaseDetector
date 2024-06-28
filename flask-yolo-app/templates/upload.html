@@ -3,16 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Upload Image for Detection</title>
 </head>
 <body>
-    <h1>Upload Image for Detection</h1>
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
-    <br>
-    <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+    <header>
+        <div class="container">
+            <h1>Upload Image for Detection</h1>
+            <p>Select an image file to upload for plant disease detection. Our AI models will analyze the image and provide a detailed report.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <form method="post" enctype="multipart/form-data" class="upload-form">
+            <input type="file" name="file" id="file-upload" required hidden>
+            <label for="file-upload" class="button">Choose File</label>
+            <span id="file-name">No file chosen</span>
+            <input type="submit" value="Upload" class="button">
+        </form>
+        <br>
+        <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plant Disease Detector. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('file-upload').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+            document.getElementById('file-name').textContent = fileName;
+        });
+    </script>
 </body>
 </html>

@@ -3,15 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Annotated Image</title>
 </head>
 <body>
-    <h1>Annotated Image</h1>
-    <img src="{{ url_for('static', filename=filename) }}" alt="Annotated Image">
-    <h2>Prediction: {{ prediction }}</h2>
-    <br>
-    <a href="{{ url_for('upload_image') }}" class="button">Upload Another Image</a>
-    <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+    <header>
+        <div class="container">
+            <h1>Annotated Image</h1>
+            <p>Below is the annotated image with the detected plant disease and the prediction result.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename=filename) }}" alt="Annotated Image" class="annotated-image">
+            <h2>Prediction: <span class="prediction">{{ prediction }}</span></h2>
+        </div>
+        <div class="button-container">
+            <a href="{{ url_for('upload_image') }}" class="button">Upload Another Image</a>
+            <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plant Disease Detector. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
