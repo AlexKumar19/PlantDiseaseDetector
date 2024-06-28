@@ -23,6 +23,13 @@
             <a href="{{ url_for('upload_image') }}" class="button">Upload Another Image</a>
             <a href="{{ url_for('index') }}" class="button">Back to Home</a>
         </div>
+
+        <div class="chatbox">
+            <h2>Ask About the Disease</h2>
+            <div id="chat-log"></div>
+            <input type="text" id="chat-input" placeholder="Type your question here...">
+            <button id="send-button" class="button">Send</button>
+        </div>
     </main>
 
     <footer>
@@ -30,5 +37,29 @@
             <p>&copy; 2024 Plant Disease Detector. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        document.getElementById('send-button').addEventListener('click', function() {
+            const input = document.getElementById('chat-input');
+            const message = input.value;
+            input.value = '';
+
+            const chatLog = document.getElementById('chat-log');
+            chatLog.innerHTML += '<div class="user-message"><strong>You:</strong> ' + message + '</div>';
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                chatLog.innerHTML += '<div class="bot-response"><strong>Bot:</strong> ' + data.response + '</div>';
+                chatLog.scrollTop = chatLog.scrollHeight;
+            });
+        });
+    </script>
 </body>
 </html>
