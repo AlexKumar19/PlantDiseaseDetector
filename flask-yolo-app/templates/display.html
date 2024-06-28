@@ -3,15 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Annotated Image</title>
 </head>
 <body>
-    <h1>Annotated Image</h1>
-    <img src="{{ url_for('static', filename=filename) }}" alt="Annotated Image">
-    <h2>Prediction: {{ prediction }}</h2>
-    <br>
-    <a href="{{ url_for('upload_image') }}" class="button">Upload Another Image</a>
-    <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+    <header>
+        <div class="container">
+            <h1>Annotated Image</h1>
+            <p>Below is the annotated image with the detected plant disease and the prediction result.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename=filename) }}" alt="Annotated Image" class="annotated-image">
+            <h2>Prediction: <span class="prediction">{{ prediction }}</span></h2>
+        </div>
+        <div class="button-container">
+            <a href="{{ url_for('upload_image') }}" class="button">Upload Another Image</a>
+            <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+        </div>
+
+        <div class="chatbox">
+            <h2>Ask About the Disease</h2>
+            <div id="chat-log"></div>
+            <input type="text" id="chat-input" placeholder="Type your question here...">
+            <button id="send-button" class="button">Send</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plant Disease Detector. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('send-button').addEventListener('click', function() {
+            const input = document.getElementById('chat-input');
+            const message = input.value;
+            input.value = '';
+
+            const chatLog = document.getElementById('chat-log');
+            chatLog.innerHTML += '<div class="user-message"><strong>You:</strong> ' + message + '</div>';
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                chatLog.innerHTML += '<div class="bot-response"><strong>Bot:</strong> ' + data.response + '</div>';
+                chatLog.scrollTop = chatLog.scrollHeight;
+            });
+        });
+    </script>
 </body>
 </html>

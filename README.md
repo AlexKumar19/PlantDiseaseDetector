@@ -8,6 +8,7 @@ PlantDiseaseDetector is a machine learning project designed to assist farmers in
 - **Real-Time Segmentation**: Segment and highlight diseased areas on leaves in real-time using YOLOv8.
 - **Multi-Leaf Detection**: Handle multiple leaves in a single image, ensuring comprehensive analysis.
 - **Keras-based Classification**: Utilize a Keras model to classify segmented leaves into specific disease categories.
+-  **Interactive Chatbot**: Powered by GPT-3.5, the chatbot provides advice on plant diseases, specifically for potatoes and tomatoes.
 - **User-Friendly Web Interface**: A Flask-based web application with endpoints for video streaming and image uploads.
 
 ## Table of Contents

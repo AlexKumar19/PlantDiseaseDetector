@@ -3,13 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <title>YOLO Object Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Plant Disease Detector</title>
 </head>
 <body>
-    <h1>YOLO Object Detection</h1>
-    <p>Welcome to our YOLO object detection demo. Choose an option below:</p>
-    <a href="{{ url_for('video') }}" class="button">Real-time Video Detection</a>
-    <a href="{{ url_for('upload_image') }}" class="button">Upload Image for Detection</a>
+    <header>
+        <div class="container">
+            <h1>Plant Disease Detector</h1>
+            <p>Welcome to the Plant Disease Detector, your go-to solution for identifying diseases in plants using advanced AI models.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>About</h2>
+            <p>This application uses cutting-edge machine learning models to detect diseases in plant leaves. Simply upload an image, and our model will analyze it to provide a diagnosis.</p>
+        </section>
+        
+        <section>
+            <h2>Features</h2>
+            <ul>
+                <li>Real-time video detection using YOLOv8</li>
+                <li>Image upload for detailed analysis</li>
+                <li>Trained neural network for leaf disease prediction</li>
+                <li>Interactive chatbot powered by GPT-3.5</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>AI Chatbot</h2>
+            <p>Our application includes a powerful chatbot powered by GPT-3.5. This chatbot is an expert on plant diseases, particularly those affecting potatoes and tomatoes. After the model predicts the disease, you can interact with the chatbot to learn more about the disease, ask questions, and get expert advice.</p>
+        </section>
+        
+        <section class="button-container">
+            <a href="{{ url_for('upload_image') }}" class="button">Upload Image for Detection</a>
+            <a href="{{ url_for('video') }}" class="button">Real-time Video Detection</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Plant Disease Detector. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
