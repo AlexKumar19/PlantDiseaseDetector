@@ -3,36 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant Disease Detector</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Plant Disease Detector</title>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Welcome to the Plant Disease Detector</h1>
-            <p>Our mission is to help farmers and gardeners quickly identify and address plant diseases using advanced machine learning and computer vision technologies.</p>
+            <h1>Plant Disease Detector</h1>
+            <p>Welcome to the Plant Disease Detector, your go-to solution for identifying diseases in plants using advanced AI models.</p>
         </div>
     </header>
 
     <main class="container">
-        <section id="mission">
-            <h2>Mission Statement</h2>
-            <p>We aim to revolutionize plant disease management by providing an easy-to-use platform that leverages state-of-the-art AI models to detect and classify plant diseases from images. Our goal is to support sustainable agriculture and ensure healthy crops for everyone.</p>
+        <section>
+            <h2>About</h2>
+            <p>This application uses cutting-edge machine learning models to detect diseases in plant leaves. Simply upload an image, and our model will analyze it to provide a diagnosis.</p>
         </section>
-
-        <section id="features">
+        
+        <section>
             <h2>Features</h2>
             <ul>
-                <li>Real-time video feed for live plant disease detection.</li>
-                <li>Upload images for quick analysis and detailed reports.</li>
-                <li>Accurate classification of multiple plant diseases using cutting-edge AI models.</li>
+                <li>Real-time video detection using YOLOv8</li>
+                <li>Image upload for detailed analysis</li>
+                <li>Trained neural network for leaf disease prediction</li>
+                <li>Interactive chatbot powered by GPT-3.5</li>
             </ul>
         </section>
-
-        <section id="demo">
-            <h2>Try Our Demo</h2>
-            <a class="button" href="{{ url_for('video') }}">Live Video Detection</a>
-            <a class="button" href="{{ url_for('upload_image') }}">Upload Image for Analysis</a>
+        
+        <section>
+            <h2>AI Chatbot</h2>
+            <p>Our application includes a powerful chatbot powered by GPT-3.5. This chatbot is an expert on plant diseases, particularly those affecting potatoes and tomatoes. After the model predicts the disease, you can interact with the chatbot to learn more about the disease, ask questions, and get expert advice.</p>
+        </section>
+        
+        <section class="button-container">
+            <a href="{{ url_for('upload_image') }}" class="button">Upload Image for Detection</a>
+            <a href="{{ url_for('video') }}" class="button">Real-time Video Detection</a>
         </section>
     </main>
 
