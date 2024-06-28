@@ -57,7 +57,6 @@ def video_feed():
 @app.route('/video')
 def video():
     return render_template('video.html')
-
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_image():
     if request.method == 'POST':
@@ -79,7 +78,7 @@ def upload_image():
             annotated_image = results[0].plot()
 
             # Convert BGR (OpenCV default) to RGB
-            #annotated_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
+            # annotated_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
             
             # Save the annotated image
             annotated_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'annotated_' + filename)
@@ -92,7 +91,8 @@ def upload_image():
             for box in results[0].boxes.xyxy:
                 x1, y1, x2, y2 = map(int, box)
                 leaf_image = np.array(image)[y1:y2, x1:x2]
-                leaf_image = Image.fromarray(leaf_image).resize((128, 128))
+                leaf_image = Image.fromarray(leaf_image).convert('RGB')  # Ensure the image is in RGB format
+                leaf_image = leaf_image.resize((128, 128))
                 leaf_array = np.array(leaf_image) / 255.0  # Normalize the image
                 leaf_array = np.expand_dims(leaf_array, axis=0)  # Add batch dimension
                 leaves_images.append(leaf_array)
@@ -112,12 +112,14 @@ def upload_image():
             return redirect(url_for('display_image', filename='annotated_' + filename, prediction=predicted_class))
     return render_template('upload.html')
 
+
 @app.route('/uploads/<filename>')
 def display_image(filename):
     prediction = request.args.get('prediction', '')
-    file_url = os.path.join('uploads', filename)
+    file_url = os.path.join('uploads', filename).replace("\\", "/")
     print(f"Displaying image from {file_url}")  # Debug statement
     return render_template('display.html', filename=file_url, prediction=prediction)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
