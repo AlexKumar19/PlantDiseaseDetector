@@ -20,6 +20,11 @@
         <br>
         <img id="video-feed" src="" style="display:none;">
         <br>
+        <form id="upload-form" action="{{ url_for('upload_video') }}" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="video/mp4" class="file-input">
+            <input type="submit" value="Upload MP4" class="button">
+        </form>
+        <br>
         <a href="{{ url_for('index') }}" class="button">Back to Home</a>
     </main>
 

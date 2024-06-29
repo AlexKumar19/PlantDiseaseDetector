@@ -15,9 +15,12 @@
     </header>
 
     <main class="container">
-        <form method="post" enctype="multipart/form-data" class="upload-form">
+        <form id="upload-form" method="post" enctype="multipart/form-data" class="upload-form">
             <input type="file" name="file" id="file-upload" required hidden>
             <label for="file-upload" class="button">Choose File</label>
+            <div id="drop-zone" class="drop-zone">
+                Drag & Drop your file here or click to select
+            </div>
             <span id="file-name">No file chosen</span>
             <input type="submit" value="Upload" class="button">
         </form>
@@ -32,9 +35,34 @@
     </footer>
 
     <script>
-        document.getElementById('file-upload').addEventListener('change', function() {
-            const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
-            document.getElementById('file-name').textContent = fileName;
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-upload');
+        const fileNameDisplay = document.getElementById('file-name');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                fileNameDisplay.textContent = files[0].name;
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            const fileName = fileInput.files[0] ? fileInput.files[0].name : 'No file chosen';
+            fileNameDisplay.textContent = fileName;
         });
     </script>
 </body>
