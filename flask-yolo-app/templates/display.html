@@ -17,7 +17,7 @@
     <main class="container">
         <div class="image-container">
             <img src="{{ url_for('static', filename=filename) }}" alt="Annotated Image" class="annotated-image">
-            <h2>Prediction: <span class="prediction">{{ prediction }}</span></h2>
+            <h2>Prediction from CNN: <span class="prediction">{{ prediction }}</span></h2>
         </div>
         <div class="button-container">
             <a href="{{ url_for('upload_image') }}" class="button">Upload Another Image</a>
@@ -26,9 +26,11 @@
 
         <div class="chatbox">
             <h2>Ask About the Disease</h2>
-            <div id="chat-log"></div>
-            <input type="text" id="chat-input" placeholder="Type your question here...">
-            <button id="send-button" class="button">Send</button>
+            <div id="chat-log" class="chat-log"></div>
+            <div class="input-container">
+                <input type="text" id="chat-input" placeholder="Type your question here..." class="chat-input">
+                <button id="send-button" class="button">Send</button>
+            </div>
         </div>
     </main>
 

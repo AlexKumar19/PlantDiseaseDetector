@@ -90,8 +90,13 @@ def upload_image():
             # Perform object detection
             image = Image.open(filepath)
             results = yolo_model.predict(source=image)
-            annotated_image = results[0].plot()
-
+            
+            # Annotate the frame without labels
+            annotated_image = np.array(image)
+            for box in results[0].boxes.xyxy:
+                x1, y1, x2, y2 = map(int, box)
+                cv2.rectangle(annotated_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            
             # Save the annotated image
             annotated_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'annotated_' + filename)
             Image.fromarray(annotated_image).save(annotated_image_path)
@@ -143,6 +148,50 @@ def chat():
         ]
     )
     return jsonify({"response": response.choices[0].message.content})
+
+@app.route('/upload_video', methods=['POST'])
+def upload_video():
+    if 'file' not in request.files:
+        return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+        return redirect(request.url)
+    if file:
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        
+        print(f"Video file saved to {filepath}")  # Debug statement
+        
+        return redirect(url_for('process_video', filename=filename))
+    return redirect(url_for('video'))
+
+@app.route('/process_video/<filename>')
+def process_video(filename):
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    
+    def generate_frames(video_path):
+        cap = cv2.VideoCapture(video_path)
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                break
+            
+            # Perform object detection
+            results = yolo_model.predict(source=frame)
+            annotated_frame = results[0].plot()
+            
+            # Encode the frame in JPEG format
+            ret, buffer = cv2.imencode('.jpg', annotated_frame)
+            frame = buffer.tobytes()
+            
+            # Yield the frame in byte format
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        cap.release()
+    
+    return Response(generate_frames(filepath), mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
